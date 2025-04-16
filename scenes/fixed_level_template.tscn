@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyu53j3eulejh"]
+
+[ext_resource type="Texture2D" uid="uid://cntgjc18fukt4" path="res://icon.svg" id="1_3lgj3"]
+[ext_resource type="PackedScene" uid="uid://c4u0xxmx2wrdk" path="res://scenes/npc.tscn" id="1_ndxdy"]
+[ext_resource type="PackedScene" uid="uid://d1ar6auop4unm" path="res://scenes/player.tscn" id="2_nvitf"]
+
+[sub_resource type="Curve2D" id="Curve2D_hq66g"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -65, -31, 0, 0, 0, 0, -94, 26, 0, 0, 0, 0, 0, 0)
+}
+point_count = 4
+
+[node name="FixedLevelTemplate" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="GroundCollider" type="CollisionPolygon2D" parent="Ground"]
+position = Vector2(-4.76837e-07, 2)
+scale = Vector2(0.268175, 0.300136)
+polygon = PackedVector2Array(-611, 88, -100, 130, 251, 131, 487, 106, 620, 118, 620, 364, -614, 362)
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(78.5, -1.5)
+scale = Vector2(0.242188, 0.242188)
+texture = ExtResource("1_3lgj3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -152.0
+offset_top = -87.0
+offset_right = -84.0
+offset_bottom = -64.0
+text = "Test text"
+
+[node name="Player" parent="." instance=ExtResource("2_nvitf")]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_hq66g")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = -2.69658
+rotates = false
+
+[node name="NPC" parent="Path2D/PathFollow2D" instance=ExtResource("1_ndxdy")]
+rotation = 2.69658
+
+[node name="Sprite2D2" type="Sprite2D" parent="Path2D/PathFollow2D/NPC"]
+scale = Vector2(0.234375, 0.234375)
+texture = ExtResource("1_3lgj3")
