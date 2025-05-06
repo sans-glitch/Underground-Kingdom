@@ -1,20 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyu53j3eulejh"]
+[gd_scene load_steps=8 format=3 uid="uid://cyu53j3eulejh"]
 
 [ext_resource type="Texture2D" uid="uid://cntgjc18fukt4" path="res://icon.svg" id="1_3lgj3"]
-[ext_resource type="PackedScene" uid="uid://c4u0xxmx2wrdk" path="res://scenes/npc.tscn" id="1_ndxdy"]
+[ext_resource type="PackedScene" uid="uid://cxycm1xik8cr" path="res://scenes/inventory.tscn" id="1_hq66g"]
+[ext_resource type="PackedScene" uid="uid://c4u0xxmx2wrdk" path="res://scenes/background_npc.tscn" id="1_ndxdy"]
 [ext_resource type="PackedScene" uid="uid://d1ar6auop4unm" path="res://scenes/player.tscn" id="2_nvitf"]
+[ext_resource type="PackedScene" uid="uid://bdb5m62tv5sxv" path="res://scenes/item.tscn" id="5_5xxc7"]
 
-[sub_resource type="Curve2D" id="Curve2D_hq66g"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -65, -31, 0, 0, 0, 0, -94, 26, 0, 0, 0, 0, 0, 0)
-}
-point_count = 4
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndxdy"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20xyi"]
+size = Vector2(10, 10)
 
 [node name="FixedLevelTemplate" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="Inventory" parent="Camera2D" instance=ExtResource("1_hq66g")]
+visible = false
+
 [node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="GroundCollider" type="CollisionPolygon2D" parent="Ground"]
 position = Vector2(-4.76837e-07, 2)
@@ -34,17 +41,27 @@ offset_bottom = -64.0
 text = "Test text"
 
 [node name="Player" parent="." instance=ExtResource("2_nvitf")]
+z_index = 5
 
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource("Curve2D_hq66g")
+[node name="NPC" parent="." instance=ExtResource("1_ndxdy")]
+walk_duration = 1.0
+pause_duration = 1.0
+turn_chance = 0.5
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-rotation = -2.69658
-rotates = false
-
-[node name="NPC" parent="Path2D/PathFollow2D" instance=ExtResource("1_ndxdy")]
-rotation = 2.69658
-
-[node name="Sprite2D2" type="Sprite2D" parent="Path2D/PathFollow2D/NPC"]
+[node name="Sprite2D2" type="Sprite2D" parent="NPC"]
 scale = Vector2(0.234375, 0.234375)
 texture = ExtResource("1_3lgj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC"]
+shape = SubResource("RectangleShape2D_ndxdy")
+
+[node name="Item" parent="." instance=ExtResource("5_5xxc7")]
+position = Vector2(133, 22)
+item_name = "Bob"
+
+[node name="Sprite2D" type="Sprite2D" parent="Item"]
+scale = Vector2(0.078125, 0.078125)
+texture = ExtResource("1_3lgj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
+shape = SubResource("RectangleShape2D_20xyi")

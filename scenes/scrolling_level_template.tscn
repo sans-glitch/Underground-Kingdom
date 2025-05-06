@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqv6skcmodcpr"]
+[gd_scene load_steps=3 format=3 uid="uid://dqv6skcmodcpr"]
 
 [ext_resource type="PackedScene" uid="uid://d1ar6auop4unm" path="res://scenes/player.tscn" id="1_fxfyw"]
+[ext_resource type="PackedScene" uid="uid://cxycm1xik8cr" path="res://scenes/inventory.tscn" id="2_1urla"]
 
 [node name="ScrollingLevelTemplate" type="Node2D"]
 
@@ -12,9 +13,13 @@ limit_left = 0
 limit_bottom = 200
 position_smoothing_enabled = true
 
+[node name="Inventory" parent="Player/Camera2D" instance=ExtResource("2_1urla")]
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="GroundPolygon" type="CollisionPolygon2D" parent="Ground"]
 position = Vector2(161, 105)
