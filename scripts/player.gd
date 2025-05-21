@@ -28,9 +28,10 @@ func _physics_process(delta: float) -> void:
 			$AnimatedSprite2D.flip_h = true
 		$AnimatedSprite2D.play()
 	else:
-		$AnimatedSprite2D.pause()
+		$AnimatedSprite2D.frame = 7
 		
 	move_and_slide()
+	round_sprite_position()
 	#move_pixelized()
 	
 	
@@ -46,7 +47,7 @@ func move_pixelized(): # WARNING: BAD WITH PHYSICS
 	position = Vector2(round(position.x), round(position.y))
 
 func round_sprite_position():
-	var sprite : Sprite2D = $Sprite2D
+	var sprite : AnimatedSprite2D = $AnimatedSprite2D
 	sprite.position = Vector2.ZERO
 	var sprite_glob_pos = sprite.global_position
 	var new_global_position = sprite.global_position.snapped(Vector2(1, 1))

@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck7kne56bryxt"]
+
+[ext_resource type="Texture2D" uid="uid://b4dyfa6ohitbu" path="res://assets/TallEnemyPlaceholder.png" id="1_md0e3"]
+[ext_resource type="PackedScene" uid="uid://bgrcoq61uylgh" path="res://scenes/killzone.tscn" id="2_4ra3w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
+size = Vector2(20, 30)
+
+[node name="Enemy" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_md0e3")
+
+[node name="Killzone" parent="." instance=ExtResource("2_4ra3w")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("RectangleShape2D_5uy6h")

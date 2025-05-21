@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0f6yjkb2we7e"]
+
+[ext_resource type="Script" uid="uid://cfydjl8mlm5gc" path="res://scripts/next_level_area.gd" id="1_o2b3q"]
+[ext_resource type="Texture2D" uid="uid://bxiwppbblx45s" path="res://assets/EntrancePlaceholder.png" id="2_wxtga"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxtga"]
+size = Vector2(16, 30)
+
+[node name="NextLevelArea" type="Area2D"]
+script = ExtResource("1_o2b3q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wxtga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wxtga")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
